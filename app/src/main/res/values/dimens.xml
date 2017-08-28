@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="length_200">200dp</dimen>
+    <dimen name="default_margin">16dp</dimen>
+    <dimen name="length_5">5dp</dimen>
+    <dimen name="length_10">10dp</dimen>
+    <dimen name="length_20">20dp</dimen>
+    <dimen name="length_30">30dp</dimen>
+    <dimen name="length_1">1dp</dimen>
+
+    <!--Font-->
+    <dimen name="font_20">20sp</dimen>
+    <dimen name="font_30">30sp</dimen>
+    <dimen name="font_16">16sp</dimen>
+    <dimen name="font_12">12sp</dimen>
+</resources>

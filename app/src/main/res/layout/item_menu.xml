@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/length_5"
+    android:background="@drawable/step_selector">
+
+    <TextView
+        android:id="@+id/tv_number"
+        android:layout_width="@dimen/length_30"
+        android:layout_height="@dimen/length_30"
+        android:layout_gravity="center_vertical"
+        android:gravity="center"
+        android:layout_marginLeft="@dimen/length_5"
+        android:padding="@dimen/length_5"
+        android:textSize="@dimen/font_16"
+        android:textStyle="bold"
+        android:text="1"
+        android:textColor="@android:color/black"
+        android:background="@drawable/number_background"/>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:padding="@dimen/length_10"
+        android:textSize="@dimen/font_16"
+        android:textStyle="bold"
+        android:text="@string/recipe_step_desc"
+        android:textColor="@android:color/black"/>
+
+</LinearLayout>

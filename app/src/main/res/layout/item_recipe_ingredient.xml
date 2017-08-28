@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/length_5">
+
+    <TextView
+        android:id="@+id/tv_ingredient"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:padding="@dimen/length_5"
+        android:textSize="@dimen/font_16"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"/>
+
+    <TextView
+        android:id="@+id/tv_quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_ingredient"
+        android:gravity="center_vertical"
+        android:paddingBottom="@dimen/length_5"
+        android:paddingLeft="@dimen/length_5"
+        android:paddingRight="@dimen/length_5"
+        android:textSize="@dimen/font_16"
+        android:textStyle="bold"
+        android:textColor="@color/warmGrey"/>
+
+    <TextView
+        android:id="@+id/tv_measure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_ingredient"
+        android:layout_toRightOf="@id/tv_quantity"
+        android:paddingBottom="@dimen/length_5"
+        android:textSize="@dimen/font_16"
+        android:textColor="@color/lightGrey"/>
+
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="@dimen/length_1"
+        android:background="@color/paleGrey"/>
+
+</RelativeLayout>

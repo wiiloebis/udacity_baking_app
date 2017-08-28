@@ -1,0 +1,5 @@
+<resources>
+    <string name="fetch_recipes_failed">Failed to fetch recipes, please try again.</string>
+    <string name="recipe_step_desc">Recipe Step Description</string>
+    <string name="recipe_ingredients">Recipe Ingredients</string>
+</resources>
