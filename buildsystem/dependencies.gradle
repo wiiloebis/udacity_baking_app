@@ -21,7 +21,7 @@ ext {
     swipeLayoutVersion = '1.2.0@aar'
     picassoVersion = '2.5.2'
     constrainLayoutVersion = '1.0.2'
-    exoPlayerVersion = 'r2.5.1';
+    exoPlayerVersion = 'r2.4.0';
 
     //Development
     crashlyticVersion = '2.6.7'

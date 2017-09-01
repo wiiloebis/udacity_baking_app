@@ -77,7 +77,7 @@ dependencies {
     compile appDependencies.retrofitConverter
     compile appDependencies.retrofitLogger
 
-    compile 'com.google.android.exoplayer:exoplayer:r2.4.0'
+    compile appDependencies.exoPlayer
 
     compile appDependencies.butterKnife
     apt appDependencies.butterknifeCompiler
