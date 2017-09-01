@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +37,9 @@ public class RecipeMenuFragment extends Fragment implements RecipeMenuAdapter
     @BindView(R.id.rv_recipe_menu)
     RecyclerView rvRecipeMenu;
 
+    @BindView(R.id.layout_failed)
+    TextView layoutFailed;
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -61,6 +65,11 @@ public class RecipeMenuFragment extends Fragment implements RecipeMenuAdapter
 
     public void displayRecipeMenu(List<StepVM> stepVMs) {
         recipeAdapter.addData(stepVMs);
+    }
+
+    public void displayEmptyMessage() {
+        rvRecipeMenu.setVisibility(View.GONE);
+        layoutFailed.setVisibility(View.VISIBLE);
     }
 
     @Override

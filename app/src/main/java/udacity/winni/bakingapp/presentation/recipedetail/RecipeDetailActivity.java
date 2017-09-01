@@ -6,9 +6,13 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import udacity.winni.bakingapp.R;
 import udacity.winni.bakingapp.presentation.model.RecipeVM;
 import udacity.winni.bakingapp.presentation.model.StepVM;
@@ -32,24 +36,32 @@ public class RecipeDetailActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_detail);
+        ButterKnife.bind(this);
         displayRecipeMenu();
         setScreenActionBar();
     }
 
     private void displayRecipeMenu() {
         recipeVM = getIntent().getParcelableExtra(RECIPES);
-        List<StepVM> steps = recipeVM.getSteps();
+
         RecipeMenuFragment recipeMenuFragment = (RecipeMenuFragment)
             getSupportFragmentManager()
                 .findFragmentById(R.id.list_recipe_menu);
-        recipeMenuFragment.displayRecipeMenu(steps);
+        if (recipeVM != null) {
+            List<StepVM> steps = recipeVM.getSteps();
+            recipeMenuFragment.displayRecipeMenu(steps);
+        } else {
+            recipeMenuFragment.displayEmptyMessage();
+        }
     }
 
     private void setScreenActionBar() {
-        actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setHomeButtonEnabled(true);
-        actionBar.setTitle(recipeVM.getName());
+        if (recipeVM != null) {
+            actionBar = getSupportActionBar();
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeButtonEnabled(true);
+            actionBar.setTitle(recipeVM.getName());
+        }
     }
 
     public void onRecipeStepClicked(StepVM step) {

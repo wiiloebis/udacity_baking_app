@@ -89,8 +89,10 @@ public class RecipeStepDetailActivity extends AppCompatActivity {
 
     private void displayStep() {
         StepVM stepVM = getIntent().getParcelableExtra(RECIPE_STEP);
-        videoUrl = stepVM.getVideoURL();
-        textviewInstruction.setText(stepVM.getDescription());
+        if (stepVM != null) {
+            videoUrl = stepVM.getVideoURL();
+            textviewInstruction.setText(stepVM.getDescription());
+        }
     }
 
     private void setUpExoPlayer() {

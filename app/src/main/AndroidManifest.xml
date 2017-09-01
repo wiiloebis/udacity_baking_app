@@ -21,7 +21,6 @@
 
         <activity android:name=".presentation.recipedetail.RecipeDetailActivity"/>
         <activity android:name=".presentation.recipedetail.RecipeStepDetailActivity"/>
-        <activity android:name=".TestDoankActivity"/>
     </application>
 
 </manifest>

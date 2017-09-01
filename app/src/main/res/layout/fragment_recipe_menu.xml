@@ -11,4 +11,16 @@
         android:layout_marginLeft="@dimen/length_5"
         android:layout_marginRight="@dimen/length_5"/>
 
+    <TextView
+        android:id="@+id/layout_failed"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/default_margin"
+        android:gravity="center"
+        android:textColor="@color/paleGrey"
+        android:textSize="@dimen/font_30"
+        android:text="@string/no_content"
+        android:visibility="gone">
+    </TextView>
+
 </LinearLayout>
