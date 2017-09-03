@@ -19,6 +19,8 @@ public class StepVM implements Parcelable {
 
     private int clicked = 0;
 
+    private String thumbnailURL;
+
     public StepVM() {
 
     }
@@ -29,6 +31,7 @@ public class StepVM implements Parcelable {
         description = in.readString();
         videoURL = in.readString();
         clicked = in.readInt();
+        thumbnailURL = in.readString();
     }
 
     public static final Creator<StepVM> CREATOR = new Creator<StepVM>() {
@@ -75,6 +78,22 @@ public class StepVM implements Parcelable {
         this.videoURL = videoURL;
     }
 
+    public int getClicked() {
+        return clicked;
+    }
+
+    public void setClicked(int clicked) {
+        this.clicked = clicked;
+    }
+
+    public String getThumbnailURL() {
+        return thumbnailURL;
+    }
+
+    public void setThumbnailURL(String thumbnailURL) {
+        this.thumbnailURL = thumbnailURL;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -87,13 +106,6 @@ public class StepVM implements Parcelable {
         dest.writeString(description);
         dest.writeString(videoURL);
         dest.writeInt(clicked);
-    }
-
-    public int getClicked() {
-        return clicked;
-    }
-
-    public void setClicked(int clicked) {
-        this.clicked = clicked;
+        dest.writeString(thumbnailURL);
     }
 }

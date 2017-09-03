@@ -24,6 +24,8 @@ public class RecipeMenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private static final int RECIPE_STEP = 1;
 
+    private static final int RECIPE_MENU_POSITION = 0;
+
     private OnItemClickedListener onItemClickedListener;
 
     private List<StepVM> stepVMs;
@@ -56,7 +58,7 @@ public class RecipeMenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         public void bindData(final StepVM stepVM, int selectedPosition, int position) {
             tvTitle.setText(stepVM.getShortDescription());
-            tvNumber.setText(""+getAdapterPosition());
+            tvNumber.setText("" + getAdapterPosition());
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -80,8 +82,6 @@ public class RecipeMenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             super(itemView);
             ButterKnife.bind(this, itemView);
             tvTitle.setText(context.getString(R.string.recipe_ingredients));
-            itemView.setBackgroundDrawable(
-                context.getResources().getDrawable(R.drawable.menu_border));
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -104,13 +104,16 @@ public class RecipeMenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-            .inflate(R.layout.item_menu, parent, false);
+        View view;
         switch (viewType) {
             case RECIPE_INGREDIENT:
+                view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_menu_ingredients, parent, false);
                 return new RecipeIngredientViewHolder(parent.getContext(), view,
                     onItemClickedListener);
             case RECIPE_STEP:
+                view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_menu_step, parent, false);
                 return new RecipeStepViewHolder(parent.getContext(), view, onItemClickedListener);
         }
 
@@ -120,7 +123,7 @@ public class RecipeMenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public int getItemViewType(int position) {
-        if (position == 0) {
+        if (position == RECIPE_MENU_POSITION) {
             return RECIPE_INGREDIENT;
         } else {
             return RECIPE_STEP;

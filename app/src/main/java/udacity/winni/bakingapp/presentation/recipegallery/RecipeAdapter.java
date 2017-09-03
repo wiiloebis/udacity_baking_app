@@ -1,10 +1,13 @@
 package udacity.winni.bakingapp.presentation.recipegallery;
 
+import com.squareup.picasso.Picasso;
+
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -29,13 +32,19 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         @BindView(R.id.tv_title)
         TextView tvRecipe;
 
+        @BindView(R.id.iv_recipe_image)
+        ImageView ivRecipeImage;
+
         private View itemView;
+
+        private Context context;
 
         private OnItemClickedListener onItemClickedListener;
 
         public RecipeViewHolder(Context context, View itemView,
             OnItemClickedListener onItemClickedListener) {
             super(itemView);
+            this.context = context;
             this.itemView = itemView;
             this.onItemClickedListener = onItemClickedListener;
             ButterKnife.bind(this, itemView);
@@ -51,6 +60,16 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     }
                 }
             });
+
+            String imagePath = recipeVM.getImage();
+            if (imagePath.isEmpty()) {
+                imagePath = null;
+            }
+            Picasso.with(context)
+                .load(imagePath)
+                .placeholder(R.drawable.no_image)
+                .into(ivRecipeImage);
+
         }
     }
 

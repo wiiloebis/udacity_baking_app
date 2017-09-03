@@ -14,6 +14,8 @@ public class Step {
 
     private String videoURL;
 
+    private String thumbnailUrl;
+
     public int getId() {
         return id;
     }
@@ -44,5 +46,13 @@ public class Step {
 
     public void setVideoURL(String videoURL) {
         this.videoURL = videoURL;
+    }
+
+    public String getThumbnailUrl() {
+        return thumbnailUrl;
+    }
+
+    public void setThumbnailUrl(String thumbnailUrl) {
+        this.thumbnailUrl = thumbnailUrl;
     }
 }

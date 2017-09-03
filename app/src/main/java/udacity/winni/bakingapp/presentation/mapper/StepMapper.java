@@ -24,6 +24,7 @@ public class StepMapper {
             stepVM.setDescription(step.getDescription());
             stepVM.setShortDescription(step.getShortDescription());
             stepVM.setVideoURL(step.getVideoURL());
+            stepVM.setThumbnailURL(step.getThumbnailUrl());
         }
 
         return stepVM;
