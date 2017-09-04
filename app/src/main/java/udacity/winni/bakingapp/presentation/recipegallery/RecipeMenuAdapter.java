@@ -44,14 +44,11 @@ public class RecipeMenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         private OnItemClickedListener onItemClickedListener;
 
-        private Context context;
-
-        public RecipeStepViewHolder(Context context, View itemView,
+        public RecipeStepViewHolder(View itemView,
             OnItemClickedListener onItemClickedListener) {
             super(itemView);
             ButterKnife.bind(this, itemView);
             tvNumber.setVisibility(View.VISIBLE);
-            this.context = context;
             this.itemView = itemView;
             this.onItemClickedListener = onItemClickedListener;
         }
@@ -114,7 +111,7 @@ public class RecipeMenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             case RECIPE_STEP:
                 view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.item_menu_step, parent, false);
-                return new RecipeStepViewHolder(parent.getContext(), view, onItemClickedListener);
+                return new RecipeStepViewHolder(view, onItemClickedListener);
         }
 
         throw new RuntimeException("there is no type that matches the type " + viewType
