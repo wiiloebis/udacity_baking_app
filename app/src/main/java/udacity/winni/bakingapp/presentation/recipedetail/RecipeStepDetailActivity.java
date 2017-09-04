@@ -12,6 +12,8 @@ import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 
+import com.squareup.picasso.Picasso;
+
 import android.annotation.SuppressLint;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -19,9 +21,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.VideoView;
@@ -58,6 +62,9 @@ public class RecipeStepDetailActivity extends AppCompatActivity {
     @BindView(R.id.view_exoplayer)
     SimpleExoPlayerView exoPlayerView;
 
+    @BindView(R.id.iv_recipe_step)
+    ImageView ivRecipeStep;
+
     private String videoUrl = "";
 
     @Override
@@ -90,9 +97,28 @@ public class RecipeStepDetailActivity extends AppCompatActivity {
     private void displayStep() {
         StepVM stepVM = getIntent().getParcelableExtra(RECIPE_STEP);
         if (stepVM != null) {
+            String imageThumbnail = stepVM.getThumbnailURL();
             videoUrl = stepVM.getVideoURL();
+
+//            Prefer to play video first then image. If video path is empty then image will be
+// display. If the image path is also empty then it will display placeholder no content.
+            if (TextUtils.isEmpty(videoUrl)) {
+                exoPlayerView.setVisibility(View.GONE);
+                ivRecipeStep.setVisibility(View.VISIBLE);
+                displayThumbnail(imageThumbnail);
+            } else {
+                exoPlayerView.setVisibility(View.VISIBLE);
+                ivRecipeStep.setVisibility(View.GONE);
+            }
             textviewInstruction.setText(stepVM.getDescription());
         }
+    }
+
+    private void displayThumbnail(String thumbnailUrl) {
+        Picasso.with(this)
+            .load(thumbnailUrl)
+            .placeholder(R.drawable.no_image)
+            .into(ivRecipeStep);
     }
 
     private void setUpExoPlayer() {

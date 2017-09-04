@@ -12,15 +12,19 @@ import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 
+import com.squareup.picasso.Picasso;
+
 import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import butterknife.BindView;
@@ -48,7 +52,12 @@ public class RecipeMenuDetailFragment extends Fragment {
     @BindView(R.id.view_exoplayer)
     SimpleExoPlayerView exoPlayerView;
 
+    @BindView(R.id.iv_recipe_step)
+    ImageView ivRecipeStep;
+
     private String videoUrl = "";
+
+    private String thumbnailUrl = "";
 
     @Nullable
     @Override
@@ -70,6 +79,32 @@ public class RecipeMenuDetailFragment extends Fragment {
 
     public void setVideoUrl(String videoUrl) {
         this.videoUrl = videoUrl;
+    }
+
+    public void setThumbnailUrl(String thumbnailUrl) {
+        this.thumbnailUrl = thumbnailUrl;
+    }
+
+    // Prefer to play video first then image. If video path is empty then image will be
+// display. If the image path is also empty then it will display placeholder no content.
+    public void displayStepVideoOrImage() {
+        if (TextUtils.isEmpty(videoUrl)) {
+            exoPlayerView.setVisibility(View.GONE);
+            ivRecipeStep.setVisibility(View.VISIBLE);
+            releasePlayer();
+            displayThumbnail();
+        } else {
+            exoPlayerView.setVisibility(View.VISIBLE);
+            ivRecipeStep.setVisibility(View.GONE);
+            restartPlayer();
+        }
+    }
+
+    private void displayThumbnail() {
+        Picasso.with(this.getActivity())
+            .load(thumbnailUrl)
+            .placeholder(R.drawable.no_image)
+            .into(ivRecipeStep);
     }
 
     private void setUpExoPlayer() {
@@ -102,7 +137,6 @@ public class RecipeMenuDetailFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        hideSystemUi();
         if ((Util.SDK_INT <= 23 || player == null)) {
             setUpExoPlayer();
         }
@@ -136,16 +170,6 @@ public class RecipeMenuDetailFragment extends Fragment {
         if (Util.SDK_INT > 23) {
             releasePlayer();
         }
-    }
-
-    @SuppressLint("InlinedApi")
-    private void hideSystemUi() {
-        exoPlayerView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
-            | View.SYSTEM_UI_FLAG_FULLSCREEN
-            | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
     }
 
     private void releasePlayer() {

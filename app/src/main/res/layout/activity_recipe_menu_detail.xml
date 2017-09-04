@@ -10,6 +10,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
+    <ImageView
+        android:id="@+id/iv_recipe_step"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitCenter"
+        android:background="@android:color/white"
+        android:src="@drawable/no_image"
+        android:layout_above="@+id/textview_instruction"
+        android:visibility="gone"/>
+
     <TextView
         android:id="@+id/textview_instruction"
         android:layout_width="match_parent"

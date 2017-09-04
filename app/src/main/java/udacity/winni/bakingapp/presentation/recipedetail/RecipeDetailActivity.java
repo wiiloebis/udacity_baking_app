@@ -76,8 +76,9 @@ public class RecipeDetailActivity extends AppCompatActivity {
             startActivity(intent);
         } else {
             recipeMenuDetailFragment.setVideoUrl(step.getVideoURL());
+            recipeMenuDetailFragment.setThumbnailUrl(step.getThumbnailURL());
             recipeMenuDetailFragment.displayInstruction(step);
-            recipeMenuDetailFragment.restartPlayer();
+            recipeMenuDetailFragment.displayStepVideoOrImage();
         }
     }
 
