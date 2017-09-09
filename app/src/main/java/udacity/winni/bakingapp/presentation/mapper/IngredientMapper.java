@@ -26,6 +26,19 @@ public class IngredientMapper {
         return ingredientVM;
     }
 
+    public static Ingredient transform(IngredientVM ingredientVM) {
+        Ingredient ingredient = null;
+
+        if (ingredient != null) {
+            ingredient = new Ingredient();
+            ingredient.setIngredient(ingredientVM.getIngredient());
+            ingredient.setMeasure(ingredientVM.getMeasure());
+            ingredient.setQuantity(ingredientVM.getQuantity());
+        }
+
+        return ingredient;
+    }
+
     public static List<IngredientVM> transform(List<Ingredient> ingredients) {
         List<IngredientVM> ingredientVMs = null;
 
@@ -40,6 +53,22 @@ public class IngredientMapper {
         }
 
         return ingredientVMs;
+    }
+
+    public static List<Ingredient> transformToIngredients(List<IngredientVM> ingredientVMs) {
+        List<Ingredient> ingredients = null;
+
+        if (ingredientVMs != null) {
+            ingredients = new ArrayList<>();
+
+            for (IngredientVM ingredientVM : ingredientVMs) {
+                ingredients.add(transform(ingredientVM));
+            }
+        } else {
+            ingredientVMs = Collections.emptyList();
+        }
+
+        return ingredients;
     }
 
 }

@@ -58,6 +58,7 @@ public class RecipeGalleryActivity extends AppCompatActivity implements RecipeGa
         ButterKnife.bind(this);
         recipeGalleryPresenter = new RecipeGalleryPresenter(this,
             ApplicationComponent.provideGetRecipes(),
+            ApplicationComponent.provideAddFavoriteRecipes(),
             new RecipeMapper());
         setRecipeAdapter();
         handleDataFromState(savedInstanceState);
@@ -127,6 +128,16 @@ public class RecipeGalleryActivity extends AppCompatActivity implements RecipeGa
     }
 
     @Override
+    public void onAddFavoriteRecipeSuccess() {
+
+    }
+
+    @Override
+    public void onAddFavoriteRecipeFailed() {
+
+    }
+
+    @Override
     public void showLoadingBar() {
         if (progressDialog == null) {
             progressDialog = new ProgressDialog(this, R.style.ProgressDialogTheme);
@@ -148,5 +159,10 @@ public class RecipeGalleryActivity extends AppCompatActivity implements RecipeGa
         Intent intent = new Intent(this, RecipeDetailActivity.class);
         intent.putExtra(RecipeDetailActivity.RECIPES, recipe);
         startActivity(intent);
+    }
+
+    @Override
+    public void onItemLongClicked(RecipeVM recipeVM) {
+        recipeGalleryPresenter.addAsFavoriteRecipe(recipeVM);
     }
 }

@@ -14,12 +14,26 @@ public class RecipeDataRepository implements RecipeRepository {
 
     private RecipeDataSource cloudRecipeDataSource;
 
-    public RecipeDataRepository(RecipeDataSource cloudRecipeDataSource) {
+    private RecipeDataSource localRecipeDataSource;
+
+    public RecipeDataRepository(RecipeDataSource cloudRecipeDataSource,
+        RecipeDataSource localRecipeDataSource) {
         this.cloudRecipeDataSource = cloudRecipeDataSource;
+        this.localRecipeDataSource = localRecipeDataSource;
     }
 
     @Override
     public Observable<List<Recipe>> getRecipes() {
         return cloudRecipeDataSource.getRecipes();
+    }
+
+    @Override
+    public Observable<List<Recipe>> getFavoriteRecipes() {
+        return localRecipeDataSource.getFavoriteRecipe();
+    }
+
+    @Override
+    public Observable<Boolean> addFavoriteRecipe(Recipe recipe) {
+        return localRecipeDataSource.addFavoriteRecipe(recipe);
     }
 }

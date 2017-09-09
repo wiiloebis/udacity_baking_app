@@ -152,8 +152,9 @@ public class RecipeMenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         notifyDataSetChanged();
     }
 
-    public void resetData(List<StepVM> steps) {
+    public void resetDataWithDummyHeader(List<StepVM> steps) {
         stepVMs.clear();
+        stepVMs.add(0, new StepVM());
         stepVMs.addAll(steps);
         notifyDataSetChanged();
     }

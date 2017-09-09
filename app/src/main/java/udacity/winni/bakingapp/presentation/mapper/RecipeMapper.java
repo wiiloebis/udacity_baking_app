@@ -31,6 +31,23 @@ public class RecipeMapper {
         return recipeVM;
     }
 
+    public static Recipe transform(RecipeVM recipeVM) {
+        Recipe recipe = null;
+
+        if (recipeVM != null) {
+            recipe = new Recipe();
+            recipe.setId(recipeVM.getId());
+            recipe.setName(recipeVM.getName());
+            recipe.setImage(recipeVM.getImage());
+            recipe
+                .setIngredients(IngredientMapper.transformToIngredients(recipeVM.getIngredients()));
+            recipe.setServings(recipe.getServings());
+            recipe.setSteps(StepMapper.transformToSteps(recipeVM.getSteps()));
+        }
+
+        return recipe;
+    }
+
     public static List<RecipeVM> transform(List<Recipe> recipes) {
         List<RecipeVM> recipeVMs = null;
 

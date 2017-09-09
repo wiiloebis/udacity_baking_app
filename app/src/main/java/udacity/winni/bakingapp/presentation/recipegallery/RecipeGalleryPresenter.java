@@ -4,8 +4,11 @@ import java.util.List;
 
 import io.reactivex.observers.DisposableObserver;
 import udacity.winni.bakingapp.data.model.Recipe;
+import udacity.winni.bakingapp.domain.repository.AddFavoriteRecipe;
 import udacity.winni.bakingapp.domain.usecase.GetRecipes;
+import udacity.winni.bakingapp.presentation.mapper.IngredientMapper;
 import udacity.winni.bakingapp.presentation.mapper.RecipeMapper;
+import udacity.winni.bakingapp.presentation.mapper.StepMapper;
 import udacity.winni.bakingapp.presentation.model.RecipeVM;
 
 /**
@@ -18,13 +21,17 @@ public class RecipeGalleryPresenter implements RecipeGalleryContract.Presenter {
 
     private GetRecipes getRecipes;
 
+    private AddFavoriteRecipe addFavoriteRecipe;
+
     private RecipeMapper recipeMapper;
 
     public RecipeGalleryPresenter(RecipeGalleryContract.View view,
         GetRecipes getRecipes,
+        AddFavoriteRecipe addFavoriteRecipe,
         RecipeMapper recipeMapper) {
         this.view = view;
         this.getRecipes = getRecipes;
+        this.addFavoriteRecipe = addFavoriteRecipe;
         this.recipeMapper = recipeMapper;
     }
 
@@ -47,6 +54,37 @@ public class RecipeGalleryPresenter implements RecipeGalleryContract.Presenter {
             @Override
             public void onError(Throwable e) {
                 view.onGetRecipeFailed();
+                view.hideLoadingBar();
+            }
+
+            @Override
+            public void onComplete() {
+                view.hideLoadingBar();
+            }
+        });
+    }
+
+    @Override
+    public void addAsFavoriteRecipe(RecipeVM recipeVM) {
+        view.showLoadingBar();
+        Recipe recipe = new Recipe();
+        recipe.setId(recipeVM.getId());
+        recipe.setImage(recipeVM.getImage());
+        recipe.setIngredients(IngredientMapper.transformToIngredients(recipeVM.getIngredients()));
+        recipe.setName(recipeVM.getName());
+        recipe.setServings(recipeVM.getServings());
+        recipe.setSteps(StepMapper.transformToSteps(recipeVM.getSteps()));
+        addFavoriteRecipe.setRecipeData(recipe);
+        addFavoriteRecipe.execute(new DisposableObserver<Boolean>() {
+
+            @Override
+            public void onNext(Boolean success) {
+                view.onAddFavoriteRecipeSuccess();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                view.onAddFavoriteRecipeFailed();
                 view.hideLoadingBar();
             }
 

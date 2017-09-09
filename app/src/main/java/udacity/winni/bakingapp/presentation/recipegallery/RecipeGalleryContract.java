@@ -19,6 +19,10 @@ public interface RecipeGalleryContract {
 
         void onGetRecipeFailed();
 
+        void onAddFavoriteRecipeSuccess();
+
+        void onAddFavoriteRecipeFailed();
+
         void showLoadingBar();
 
         void hideLoadingBar();
@@ -27,5 +31,7 @@ public interface RecipeGalleryContract {
     interface Presenter extends BasePresenter {
 
         void getRecipes();
+
+        void addAsFavoriteRecipe(RecipeVM recipeVM);
     }
 }

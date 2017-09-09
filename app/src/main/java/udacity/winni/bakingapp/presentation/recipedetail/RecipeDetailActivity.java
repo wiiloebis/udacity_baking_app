@@ -49,7 +49,6 @@ public class RecipeDetailActivity extends AppCompatActivity {
                 .findFragmentById(R.id.list_recipe_menu);
         if (recipeVM != null) {
             List<StepVM> steps = recipeVM.getSteps();
-            steps.add(0, new StepVM());
             recipeMenuFragment.displayRecipeMenu(steps);
         } else {
             recipeMenuFragment.displayEmptyMessage();

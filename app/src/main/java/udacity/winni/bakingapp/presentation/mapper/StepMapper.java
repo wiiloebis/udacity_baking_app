@@ -30,6 +30,21 @@ public class StepMapper {
         return stepVM;
     }
 
+    public static Step transform(StepVM stepVM) {
+        Step step = null;
+
+        if (stepVM != null) {
+            step = new Step();
+            step.setId(stepVM.getId());
+            step.setDescription(stepVM.getDescription());
+            step.setShortDescription(stepVM.getShortDescription());
+            step.setVideoURL(stepVM.getVideoURL());
+            step.setThumbnailUrl(stepVM.getThumbnailURL());
+        }
+
+        return step;
+    }
+
     public static List<StepVM> transform(List<Step> steps) {
         List<StepVM> stepVMs = null;
 
@@ -44,5 +59,21 @@ public class StepMapper {
         }
 
         return stepVMs;
+    }
+
+    public static List<Step> transformToSteps(List<StepVM> stepVMs) {
+        List<Step> steps = null;
+
+        if (stepVMs != null) {
+            steps = new ArrayList<>();
+
+            for (StepVM stepVM : stepVMs) {
+                steps.add(transform(stepVM));
+            }
+        } else {
+            steps = Collections.emptyList();
+        }
+
+        return steps;
     }
 }
