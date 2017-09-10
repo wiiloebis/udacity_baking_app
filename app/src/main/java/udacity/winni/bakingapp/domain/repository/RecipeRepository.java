@@ -12,8 +12,4 @@ import udacity.winni.bakingapp.data.model.Recipe;
 public interface RecipeRepository {
 
     Observable<List<Recipe>> getRecipes();
-
-    Observable<List<Recipe>> getFavoriteRecipes();
-
-    Observable<Boolean> addFavoriteRecipe(Recipe recipe);
 }
