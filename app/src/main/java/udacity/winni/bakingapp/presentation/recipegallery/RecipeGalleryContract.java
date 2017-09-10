@@ -1,6 +1,8 @@
 package udacity.winni.bakingapp.presentation.recipegallery;
 
 
+import android.content.Context;
+
 import java.util.List;
 
 import udacity.winni.bakingapp.base.BasePresenter;
@@ -26,6 +28,8 @@ public interface RecipeGalleryContract {
         void showLoadingBar();
 
         void hideLoadingBar();
+
+        Context getContext();
     }
 
     interface Presenter extends BasePresenter {

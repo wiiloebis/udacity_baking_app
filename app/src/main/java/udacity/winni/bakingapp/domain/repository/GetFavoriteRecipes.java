@@ -1,6 +1,12 @@
 package udacity.winni.bakingapp.domain.repository;
 
+import com.google.gson.Gson;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import io.reactivex.Observable;
+import udacity.winni.bakingapp.BakingApplication;
 import udacity.winni.bakingapp.domain.usecase.UseCase;
 
 /**

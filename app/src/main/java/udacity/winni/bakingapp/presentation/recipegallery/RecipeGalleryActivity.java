@@ -1,6 +1,7 @@
 package udacity.winni.bakingapp.presentation.recipegallery;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -152,6 +153,11 @@ public class RecipeGalleryActivity extends AppCompatActivity implements RecipeGa
         if (progressDialog != null) {
             progressDialog.dismiss();
         }
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
     }
 
     @Override
