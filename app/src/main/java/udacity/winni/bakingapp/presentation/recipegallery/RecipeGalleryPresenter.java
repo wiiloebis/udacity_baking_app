@@ -1,5 +1,10 @@
 package udacity.winni.bakingapp.presentation.recipegallery;
 
+import com.google.gson.Gson;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import java.util.List;
 
 import io.reactivex.observers.DisposableObserver;
@@ -20,6 +25,13 @@ public class RecipeGalleryPresenter implements RecipeGalleryContract.Presenter {
 
     private RecipeMapper recipeMapper;
 
+
+    public static final String BAKING_APP_PREFERENCE = "BAKING_APP_PREFERENCE";
+
+    public static final String RECIPE_KEY = "RECIPE_KEY";
+
+    private SharedPreferences sharedpreferences;
+
     public RecipeGalleryPresenter(RecipeGalleryContract.View view,
         GetRecipes getRecipes,
         RecipeMapper recipeMapper) {
@@ -36,6 +48,15 @@ public class RecipeGalleryPresenter implements RecipeGalleryContract.Presenter {
             @Override
             public void onNext(List<Recipe> recipes) {
                 List<RecipeVM> recipeVms = recipeMapper.transform(recipes);
+
+                sharedpreferences = view.getContext()
+                    .getSharedPreferences(BAKING_APP_PREFERENCE, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                Gson gson = new Gson();
+                String jsonString = gson.toJson(recipes);
+                editor.putString(RECIPE_KEY, jsonString);
+                editor.commit();
+
                 view.hideLoadingBar();
                 if (recipeVms != null) {
                     view.onGetRecipeSuccess(recipeVms);

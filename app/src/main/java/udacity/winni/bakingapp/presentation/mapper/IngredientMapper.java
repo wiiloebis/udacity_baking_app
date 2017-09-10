@@ -41,5 +41,4 @@ public class IngredientMapper {
 
         return ingredientVMs;
     }
-
 }

@@ -64,7 +64,7 @@ public class RecipeMenuFragment extends Fragment implements RecipeMenuAdapter
     }
 
     public void displayRecipeMenu(List<StepVM> stepVMs) {
-        recipeAdapter.addData(stepVMs);
+        recipeAdapter.resetDataWithDummyHeader(stepVMs);
     }
 
     public void displayEmptyMessage() {

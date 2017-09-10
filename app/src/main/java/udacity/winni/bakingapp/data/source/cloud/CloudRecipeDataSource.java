@@ -24,4 +24,14 @@ public class CloudRecipeDataSource implements RecipeDataSource {
     public Observable<List<Recipe>> getRecipes() {
         return restApi.getRecipes();
     }
+
+    @Override
+    public Observable<List<Recipe>> getFavoriteRecipe() {
+        return null;
+    }
+
+    @Override
+    public Observable<Boolean> addFavoriteRecipe(Recipe recipe) {
+        return null;
+    }
 }
