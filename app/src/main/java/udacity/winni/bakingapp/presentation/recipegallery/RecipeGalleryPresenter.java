@@ -9,6 +9,7 @@ import java.util.List;
 
 import io.reactivex.observers.DisposableObserver;
 import udacity.winni.bakingapp.data.model.Recipe;
+import udacity.winni.bakingapp.dev.BakingAppService;
 import udacity.winni.bakingapp.domain.usecase.GetRecipes;
 import udacity.winni.bakingapp.presentation.mapper.RecipeMapper;
 import udacity.winni.bakingapp.presentation.model.RecipeVM;
@@ -18,6 +19,8 @@ import udacity.winni.bakingapp.presentation.model.RecipeVM;
  */
 
 public class RecipeGalleryPresenter implements RecipeGalleryContract.Presenter {
+
+    private static final int FIRST_INDEX = 0;
 
     private RecipeGalleryContract.View view;
 
@@ -49,13 +52,17 @@ public class RecipeGalleryPresenter implements RecipeGalleryContract.Presenter {
             public void onNext(List<Recipe> recipes) {
                 List<RecipeVM> recipeVms = recipeMapper.transform(recipes);
 
-                sharedpreferences = view.getContext()
-                    .getSharedPreferences(BAKING_APP_PREFERENCE, Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedpreferences.edit();
-                Gson gson = new Gson();
-                String jsonString = gson.toJson(recipes);
-                editor.putString(RECIPE_KEY, jsonString);
-                editor.commit();
+                RecipeVM recipeVM = recipeVms.get(FIRST_INDEX);
+
+                if (recipeVM != null) {
+                    sharedpreferences = view.getContext()
+                        .getSharedPreferences(BAKING_APP_PREFERENCE, Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedpreferences.edit();
+                    Gson gson = new Gson();
+                    String jsonString = gson.toJson(recipeVM);
+                    editor.putString(RECIPE_KEY, jsonString);
+                    editor.commit();
+                }
 
                 view.hideLoadingBar();
                 if (recipeVms != null) {
@@ -76,6 +83,11 @@ public class RecipeGalleryPresenter implements RecipeGalleryContract.Presenter {
                 view.hideLoadingBar();
             }
         });
+    }
+
+    @Override
+    public void saveSelectedRecipe(RecipeVM recipe) {
+        BakingAppService.startActionAddRecipe(view.getContext(), recipe);
     }
 
     @Override

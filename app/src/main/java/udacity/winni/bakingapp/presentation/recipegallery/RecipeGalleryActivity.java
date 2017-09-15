@@ -155,4 +155,9 @@ public class RecipeGalleryActivity extends AppCompatActivity implements RecipeGa
         intent.putExtra(RecipeDetailActivity.RECIPES, recipe);
         startActivity(intent);
     }
+
+    @Override
+    public void onLongItemClicked(RecipeVM recipe) {
+        recipeGalleryPresenter.saveSelectedRecipe(recipe);
+    }
 }

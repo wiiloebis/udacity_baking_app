@@ -15,7 +15,10 @@ import android.widget.RemoteViewsService.RemoteViewsFactory;
 import java.util.ArrayList;
 import java.util.List;
 
+import udacity.winni.bakingapp.R;
+import udacity.winni.bakingapp.presentation.model.IngredientVM;
 import udacity.winni.bakingapp.presentation.model.RecipeVM;
+import udacity.winni.bakingapp.presentation.recipedetail.RecipeDetailActivity;
 import udacity.winni.bakingapp.presentation.recipegallery.RecipeGalleryPresenter;
 
 import static udacity.winni.bakingapp.presentation.recipegallery.RecipeGalleryPresenter
@@ -24,7 +27,9 @@ import static udacity.winni.bakingapp.presentation.recipegallery.RecipeGalleryPr
 @SuppressLint("NewApi")
 public class WidgetDataProvider implements RemoteViewsFactory {
 
-    List<RecipeVM> mCollections = new ArrayList<RecipeVM>();
+    List<IngredientVM> mCollections = new ArrayList<>();
+
+    RecipeVM recipeVM;
 
     Context mContext = null;
 
@@ -55,14 +60,21 @@ public class WidgetDataProvider implements RemoteViewsFactory {
     public RemoteViews getViewAt(int position) {
         RemoteViews mView = new RemoteViews(mContext.getPackageName(),
             android.R.layout.simple_list_item_1);
-        mView.setTextViewText(android.R.id.text1, mCollections.get(position).getName());
+
+        RemoteViews mLayout = new RemoteViews(mContext.getPackageName(),
+            R.layout.baking_app_widget);
+
+        mLayout.setTextViewText(R.id.textview_recipe_name, recipeVM.getName());
+
+        IngredientVM ingredientVM = mCollections.get(position);
+        mView.setTextViewText(android.R.id.text1,
+            ingredientVM.getIngredient() + "\n" + ingredientVM.getQuantity() + " " + ingredientVM
+                .getMeasure());
         mView.setTextColor(android.R.id.text1, Color.BLACK);
 
         final Intent fillInIntent = new Intent();
-        fillInIntent.setAction(BakingAppWidget.ACTION_TOAST);
         final Bundle bundle = new Bundle();
-        bundle.putParcelable(BakingAppWidget.EXTRA_OBJECT,
-            mCollections.get(position));
+        bundle.putParcelable(RecipeDetailActivity.RECIPES, recipeVM);
         fillInIntent.putExtras(bundle);
         mView.setOnClickFillInIntent(android.R.id.text1, fillInIntent);
         return mView;
@@ -91,8 +103,10 @@ public class WidgetDataProvider implements RemoteViewsFactory {
     private void initData() {
         Gson gson = new Gson();
         String jsonString = sharedpreferences.getString(RecipeGalleryPresenter.RECIPE_KEY, "");
-        mCollections = gson.fromJson(jsonString, new TypeToken<List<RecipeVM>>() {
-        }.getType());
+        recipeVM = gson.fromJson(jsonString, RecipeVM.class);
+        if (recipeVM != null) {
+            mCollections = recipeVM.getIngredients();
+        }
     }
 
     @Override

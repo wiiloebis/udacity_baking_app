@@ -35,6 +35,8 @@
             android:name=".dev.WidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
+        <service android:name=".dev.BakingAppService" />
+
     </application>
 
 </manifest>

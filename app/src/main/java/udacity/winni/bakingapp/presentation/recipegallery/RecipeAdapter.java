@@ -61,6 +61,17 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 }
             });
 
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    if (onItemClickedListener != null) {
+                        onItemClickedListener.onLongItemClicked(recipeVM);
+                    }
+
+                    return true;
+                }
+            });
+
             String imagePath = recipeVM.getImage();
             if (imagePath.isEmpty()) {
                 imagePath = null;
@@ -118,5 +129,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public interface OnItemClickedListener {
 
         void onItemClicked(RecipeVM recipe);
+
+        void onLongItemClicked(RecipeVM recipe);
     }
 }

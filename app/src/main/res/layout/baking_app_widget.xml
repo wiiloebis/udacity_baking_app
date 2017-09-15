@@ -41,11 +41,32 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/textview_recipe_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_below="@id/layout_header"
+        android:textSize="@dimen/font_30"
+        android:textColor="@color/warmGrey"
+        android:textStyle="bold|italic"
+        android:padding="@dimen/length_5"
+        android:text="Title"
+        android:layout_marginBottom="@dimen/length_5"/>
+
+    <LinearLayout
+        android:id="@+id/separator"
+        android:layout_below="@id/textview_recipe_name"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/length_1"
+        android:background="@color/warmGrey"/>
+
     <ListView
         android:id="@+id/widgetCollectionList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/layout_header">
+        android:layout_below="@id/separator">
     </ListView>
 
 </RelativeLayout>

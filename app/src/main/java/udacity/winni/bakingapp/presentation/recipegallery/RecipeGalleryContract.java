@@ -31,5 +31,7 @@ public interface RecipeGalleryContract {
     interface Presenter extends BasePresenter {
 
         void getRecipes();
+
+        void saveSelectedRecipe(RecipeVM recipe);
     }
 }
