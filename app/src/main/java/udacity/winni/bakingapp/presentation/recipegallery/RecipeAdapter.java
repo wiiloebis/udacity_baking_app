@@ -27,6 +27,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     private List<RecipeVM> recipeVMs;
 
+    private int selectedPosition;
+
     public class RecipeViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.tv_title)
@@ -50,8 +52,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             ButterKnife.bind(this, itemView);
         }
 
-        public void bindData(final RecipeVM recipeVM) {
+        public void bindData(final RecipeVM recipeVM, int selectedPosition, int position) {
             tvRecipe.setText(recipeVM.getName());
+            itemView.setSelected(position == selectedPosition);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -65,7 +68,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 @Override
                 public boolean onLongClick(View v) {
                     if (onItemClickedListener != null) {
-                        onItemClickedListener.onLongItemClicked(recipeVM);
+                        onItemClickedListener.onLongItemClicked(recipeVM, getAdapterPosition());
                     }
 
                     return true;
@@ -98,7 +101,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ((RecipeViewHolder) holder).bindData(recipeVMs.get(holder.getAdapterPosition()));
+        ((RecipeViewHolder) holder)
+            .bindData(recipeVMs.get(holder.getAdapterPosition()), selectedPosition, position);
     }
 
     @Override
@@ -108,6 +112,11 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     public void addData(List<RecipeVM> recipes) {
         recipeVMs.addAll(recipes);
+        notifyDataSetChanged();
+    }
+
+    public void setSelectedPosition(int position) {
+        this.selectedPosition = position;
         notifyDataSetChanged();
     }
 
@@ -130,6 +139,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         void onItemClicked(RecipeVM recipe);
 
-        void onLongItemClicked(RecipeVM recipe);
+        void onLongItemClicked(RecipeVM recipe, int position);
     }
 }

@@ -41,7 +41,7 @@ public class BakingAppWidget extends AppWidgetProvider {
         appIntent.putExtra(RecipeDetailActivity.RECIPES, recipe);
         PendingIntent appPendingIntent = PendingIntent
             .getActivity(context, 0, appIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        mView.setPendingIntentTemplate(R.id.widgetCollectionList, appPendingIntent);
+        mView.setOnClickPendingIntent(R.id.textview_recipe_name, appPendingIntent);
 
         appWidgetManager.updateAppWidget(appWidgetId, mView);
     }

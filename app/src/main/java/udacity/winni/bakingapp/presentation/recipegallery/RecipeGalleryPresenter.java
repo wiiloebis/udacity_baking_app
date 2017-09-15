@@ -22,16 +22,17 @@ public class RecipeGalleryPresenter implements RecipeGalleryContract.Presenter {
 
     private static final int FIRST_INDEX = 0;
 
+    public static final String BAKING_APP_PREFERENCE = "BAKING_APP_PREFERENCE";
+
+    public static final String RECIPE_POSITION = "RECIPE_POSITION";
+
+    public static final String RECIPE_KEY = "RECIPE_KEY";
+
     private RecipeGalleryContract.View view;
 
     private GetRecipes getRecipes;
 
     private RecipeMapper recipeMapper;
-
-
-    public static final String BAKING_APP_PREFERENCE = "BAKING_APP_PREFERENCE";
-
-    public static final String RECIPE_KEY = "RECIPE_KEY";
 
     private SharedPreferences sharedpreferences;
 
@@ -64,9 +65,11 @@ public class RecipeGalleryPresenter implements RecipeGalleryContract.Presenter {
                     editor.commit();
                 }
 
+                int position = sharedpreferences.getInt(RECIPE_POSITION, FIRST_INDEX);
+
                 view.hideLoadingBar();
                 if (recipeVms != null) {
-                    view.onGetRecipeSuccess(recipeVms);
+                    view.onGetRecipeSuccess(recipeVms, position);
                 } else {
                     view.onGetRecipeFailed();
                 }
@@ -86,7 +89,12 @@ public class RecipeGalleryPresenter implements RecipeGalleryContract.Presenter {
     }
 
     @Override
-    public void saveSelectedRecipe(RecipeVM recipe) {
+    public void saveSelectedRecipe(RecipeVM recipe, int position) {
+        SharedPreferences sharedpreferences = view.getContext()
+            .getSharedPreferences(BAKING_APP_PREFERENCE, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putInt(RECIPE_POSITION, position);
+        editor.commit();
         BakingAppService.startActionAddRecipe(view.getContext(), recipe);
     }
 

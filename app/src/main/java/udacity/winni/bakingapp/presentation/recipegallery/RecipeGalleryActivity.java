@@ -113,11 +113,12 @@ public class RecipeGalleryActivity extends AppCompatActivity implements RecipeGa
     }
 
     @Override
-    public void onGetRecipeSuccess(List<RecipeVM> recipes) {
+    public void onGetRecipeSuccess(List<RecipeVM> recipes, int position) {
         this.recipes = recipes;
         rvRecipe.setVisibility(View.VISIBLE);
         tvFailMessage.setVisibility(View.GONE);
         recipeAdapter.addData(this.recipes);
+        recipeAdapter.setSelectedPosition(position);
     }
 
     @Override
@@ -157,7 +158,8 @@ public class RecipeGalleryActivity extends AppCompatActivity implements RecipeGa
     }
 
     @Override
-    public void onLongItemClicked(RecipeVM recipe) {
-        recipeGalleryPresenter.saveSelectedRecipe(recipe);
+    public void onLongItemClicked(RecipeVM recipe, int position) {
+        recipeAdapter.setSelectedPosition(position);
+        recipeGalleryPresenter.saveSelectedRecipe(recipe, position);
     }
 }

@@ -17,7 +17,7 @@ public interface RecipeGalleryContract {
 
     interface View extends BaseView {
 
-        void onGetRecipeSuccess(List<RecipeVM> recipes);
+        void onGetRecipeSuccess(List<RecipeVM> recipes, int position);
 
         void onGetRecipeFailed();
 
@@ -32,6 +32,6 @@ public interface RecipeGalleryContract {
 
         void getRecipes();
 
-        void saveSelectedRecipe(RecipeVM recipe);
+        void saveSelectedRecipe(RecipeVM recipe, int position);
     }
 }
